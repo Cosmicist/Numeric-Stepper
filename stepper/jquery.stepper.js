@@ -1,0 +1,207 @@
+(function($)
+{
+    $.fn.stepper = function( options )
+    {
+        var _defaults = {
+            type: 'float',                      // or 'int'
+            float_precission: 2,                // decimal precission
+            UI: true,                           // +/- buttons
+            allow_wheel: true,                  // mouse wheel
+            allow_arrows: true,                 // keyboar arrows (up, down)
+            arrow_step: 1,                      // ammount to increment with arrow keys
+            wheel_step: 1,                      // ammount to increment with mouse wheel
+            limit: [null, null],                // [min, max] limit
+            prevent_wheel_acceleration: true,   // In some systems, like OS X, the wheel has acceleration, enable this option to prevent it
+            
+            // Events
+            onStep: null,    // fn( [number] val, [bool] up )
+            onWheel: null,   // fn( [number] val, [bool] up )
+            onArrow: null,   // fn( [number] val, [bool] up )
+            onButton: null,  // fn( [number] val, [bool] up )
+            onKeyUp: null   // fn( [number] val )
+        };
+        
+        return $(this).each(function()
+        {
+            var _options = $.extend({}, _defaults, options),
+                $this = $(this),
+                $wrap = $('<div class="stepper-wrap"/>');
+            
+            if( $this.data('stepper') )
+                return;
+            
+            $wrap.insertAfter( $this );
+            $this.appendTo( $wrap );
+
+            /* API */
+            
+            $this.stepper = (function()
+            {
+                return {
+                    limit: _limit,
+                    decimalRound: _decimal_round,
+                    onStep: function( callback ) { _options.onStep = callback; },
+                    onWheel: function( callback ) { _options.onWheel = callback; },
+                    onArrow: function( callback ) { _options.onArrow = callback; },
+                    onButton: function( callback ) { _options.onButton = callback; },
+                    onKeyUp: function( callback ) { _options.onKeyUp = callback; }
+                };
+            })();
+
+            $this.data('stepper', $this.stepper);
+            
+            /* UI */
+            
+            if( _options.UI )
+            {
+                var $btnWrap = $('<div class="stepper-btn-wrap"/>').appendTo( $wrap ),
+                    $btnUp   = $('<a class="stepper-btn-up">+</a>').appendTo( $btnWrap ),
+                    $btnDown = $('<a class="stepper-btn-dwn">&#8210;</a>').appendTo( $btnWrap );
+                
+                $wrap.css({
+                    'margin-top': $this.css('margin-top'),
+                    'margin-left': $this.css('margin-left'),
+                    'margin-bottom': $this.css('margin-bottom'),
+                    'margin-right': $btnWrap.outerWidth() + parseInt( $this.css('margin-right') )
+                });
+
+                $this.css('margin', 0);
+
+                var stepInterval;
+                
+                $btnUp.mousedown(function(e)
+                {
+                    e.preventDefault();
+                    
+                    var val = _step( _options.arrow_step );
+                        _evt('Button', [val, true]);
+                });
+                
+                $btnDown.mousedown(function(e)
+                {
+                    e.preventDefault();
+                    
+                    var val = _step( -_options.arrow_step );
+                        _evt('Button', [val, false]);
+                });
+                
+                $(document).mouseup(function()
+                {
+                    clearInterval( stepInterval );
+                });
+            }
+            
+            
+            /* Events */
+            
+            if( _options.allow_wheel )
+            {
+                $wrap.bind('DOMMouseScroll', _handleWheel);
+                $wrap.bind('mousewheel', _handleWheel);
+            }
+            
+            $wrap.keydown(function(e)
+            {
+                var key = e.which,
+                    val = $this.val();
+                
+                if( _options.allow_arrows )
+                    switch( key )
+                    {
+                        // Up arrow
+                        case 38:
+                            val = _step( _options.arrow_step );
+                            _evt('Arrow', [val, true]);
+                        break;
+
+                        // Down arrow
+                        case 40:
+                            val = _step( -_options.arrow_step );
+                            _evt('Arrow', [val, false]);
+                        break;
+                    }
+                
+                // Only arrow keys, misc modifier chars and numbers and period (including keypad)
+                if( ( key > 37 && ( key < 40 && ( key > 57 && key < 91 ) ) ) || ( key > 105 && key != 110 && key != 190 ) )
+                    e.preventDefault();
+                
+                // Allow only one peroid and only if float is enabled
+                if( _options.type == 'float' && $.inArray( key, [ 110, 190 ] ) != -1 && val.indexOf('.') != -1 )
+                    e.preventDefault();
+            }).keyup(function(e)
+            {
+                _evt('KeyUp', [$this.val()] );
+            });
+            
+            function _handleWheel(e)
+            {
+                var d;
+
+                if( e.wheelDelta )
+                    d = e.wheelDelta / 120;
+                else if( e.detail )
+                    d = -e.detail / 3;
+
+                if( d )
+                {
+                    if( _options.prevent_wheel_acceleration )
+                        d = d < 0 ? -1 : 1;
+                    
+                    var val = _step( _options.wheel_step * d );
+                    
+                    _evt('Wheel', [val, d > 0]);
+                    
+                    // Prevent actual page scrolling
+                    e.preventDefault();
+                }
+            }
+            
+            function _step( step )
+            {
+                if( ! $this.val() )
+                    $this.val( 0 );
+
+                var typeCast = _options.type == 'int' ? parseInt : parseFloat,
+                    val      = _limit( typeCast( $this.val() ) + step );
+                    
+                $this.val( val );
+                
+                _evt('Step', [val, step > 0]);
+                
+                return val;
+            }
+            
+            function _evt( name, args )
+            {
+                var callback = _options['on'+name];
+
+                if( typeof callback == 'function' )
+                    callback.apply( $this, args );
+            }
+
+            function _limit( num )
+            {
+                var min = _options.limit[0],
+                    max = _options.limit[1];
+                
+                if( min !== null && num < min )
+                    num = min;
+                else if( max !== null && num > max )
+                    num = max;
+                
+                return _decimal_round( num );
+            }
+            
+            function _decimal_round( num, precission )
+            {
+                if( typeof precission == 'undefined' )
+                    precission =  _options.float_precission;
+                
+                var pow = Math.pow(10, precission);
+                num = Math.round( num * pow ) / pow;
+                
+                return num;
+            }
+        });
+    }
+})(jQuery);

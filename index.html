@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Numeric Stepper</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script type="text/javascript" src="stepper/jquery.stepper.js"></script>
+	<link rel="stylesheet" href="stepper/jquery.stepper.css"/>
+	<style>
+	body { font: 13px Arial, sans-serif; }
+	label { font-weight: bold; }
+	</style>
+</head>
+<body>
+
+<h2>Examples</h2>
+
+<p>
+	<label for="stepper">Default settings</label><br/>
+	<input type="text" size="2" id="stepper"/>
+</p>
+
+<p>
+	<label for="stepper2">Wheel step: 1, Arrow step: 0.2</label><br/>
+	<input type="text" size="2" id="stepper2" value="3.6"/>
+</p>
+
+<p>
+	<label for="stepper3">No UI</label> (use wheel or arrow keys)<br/>
+	<input type="text" size="2" id="stepper3"/>
+</p>
+
+<p>
+	<label for="stepper4">Limited</label> (Min: 0, Max: 10)<br/>
+	<input type="text" size="2" id="stepper4"/>
+</p>
+
+<p>
+	<label for="stepper5">Min limit only</label> (Min: 10)<br/>
+	<input type="text" size="2" id="stepper5"/>
+</p>
+
+<p>
+	<label for="stepper6">Custom margin</label><br/>
+	<input type="text" size="2" id="stepper6" style="margin: 5px 10px"/> Lorem ipsum
+</p>
+
+<p>
+	<label for="stepper7">onStep event attached on init</label><br/>
+	<input type="text" size="2" id="stepper7"/>
+</p>
+
+<p>
+	<label for="stepper8">onStep event attached after init</label><br/>
+	<input type="text" size="2" id="stepper8"/>
+</p>
+
+<h2>Events output</h2>
+<ul id="out"></ul>
+
+<script>
+// Default
+$('#stepper').stepper();
+
+// Custom step
+$('#stepper2').stepper({
+	wheel_step: 1,
+	arrow_step: 0.2
+});
+
+// No UI
+$('#stepper3').stepper({ UI: false });
+
+// Limited
+$('#stepper4').stepper({ limit: [0, 10] });
+
+// Min limit only
+$('#stepper5').stepper({ limit: [10,] });
+
+// Custom margin and late event binding
+$('#stepper6, #stepper8').stepper();
+
+// Even binding on init
+$('#stepper7').stepper({
+	onStep: stepCallback
+});
+
+// Event binding after init
+$('#stepper8').data('stepper').onStep(stepCallback);
+
+function stepCallback( val, up )
+{
+	var out = $('#out').html();
+	out += '<li><strong>Target:</strong> #'+this.attr('id')+' | <strong>Val:</strong> '+val+' | <strong>Up:</strong> '+(up ? 'true' : 'false')+'</li>';
+	$('#out').html( out );
+}
+</script>
+
+</body>
+</html>
