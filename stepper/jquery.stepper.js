@@ -146,7 +146,7 @@
                     }
                 
                 // Only arrow keys, misc modifier chars and numbers and period (including keypad)
-                if( ( key > 37 && ( key < 40 && ( key > 57 && key < 91 ) ) ) || ( key > 105 && key != 110 && key != 190 ) )
+                if( ( key < 37 && key > 40 ) || ( key > 57 && key < 91 ) || ( key > 105 && key != 110 && key != 190 ) )
                     e.preventDefault();
                 
                 // Allow only one peroid and only if float is enabled
