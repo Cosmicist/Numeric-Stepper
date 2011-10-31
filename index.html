@@ -55,12 +55,17 @@
 	<input type="text" size="2" id="stepper8"/>
 </p>
 
+<p>
+	<label for="stepper9">Options set with html5 data attributes</label><br/>
+	<input type="text" size="2" id="stepper9" data-wheel-step="0.5" data-arrow-step="0.1" data-limit="[-10,0]"/>
+</p>
+
 <h2>Events output</h2>
 <ul id="out"></ul>
 
 <script>
-// Default
-$('#stepper').stepper();
+// Default and options from html5 data attributes
+$('#stepper, #stepper9').stepper();
 
 // Custom step
 $('#stepper2').stepper({

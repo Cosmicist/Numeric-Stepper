@@ -28,14 +28,14 @@
     {
         var _defaults = {
             type: 'float',                      // or 'int'
-            float_precission: 2,                // decimal precission
-            UI: true,                           // +/- buttons
-            allow_wheel: true,                  // mouse wheel
-            allow_arrows: true,                 // keyboar arrows (up, down)
-            arrow_step: 1,                      // ammount to increment with arrow keys
-            wheel_step: 1,                      // ammount to increment with mouse wheel
+            floatPrecission: 2,                // decimal precission
+            ui: true,                           // +/- buttons
+            allowWheel: true,                  // mouse wheel
+            allowArrows: true,                 // keyboar arrows (up, down)
+            arrowStep: 1,                      // ammount to increment with arrow keys
+            wheelStep: 1,                      // ammount to increment with mouse wheel
             limit: [null, null],                // [min, max] limit
-            prevent_wheel_acceleration: true,   // In some systems, like OS X, the wheel has acceleration, enable this option to prevent it
+            preventWheelAcceleration: true,   // In some systems, like OS X, the wheel has acceleration, enable this option to prevent it
             
             // Events
             onStep: null,    // fn( [number] val, [bool] up )
@@ -47,10 +47,13 @@
         
         return $(this).each(function()
         {
-            var _options = $.extend({}, _defaults, options),
+            var $data = $(this).data();
+                delete $data.stepper;
+
+            var _options = $.extend({}, _defaults, options, $data),
                 $this = $(this),
                 $wrap = $('<div class="stepper-wrap"/>');
-            
+
             if( $this.data('stepper') )
                 return;
             
@@ -76,7 +79,7 @@
             
             /* UI */
             
-            if( _options.UI )
+            if( _options.ui )
             {
                 var $btnWrap = $('<div class="stepper-btn-wrap"/>').appendTo( $wrap ),
                     $btnUp   = $('<a class="stepper-btn-up">+</a>').appendTo( $btnWrap ),
@@ -97,7 +100,7 @@
                 {
                     e.preventDefault();
                     
-                    var val = _step( _options.arrow_step );
+                    var val = _step( _options.arrowStep );
                         _evt('Button', [val, true]);
                 });
                 
@@ -105,7 +108,7 @@
                 {
                     e.preventDefault();
                     
-                    var val = _step( -_options.arrow_step );
+                    var val = _step( -_options.arrowStep );
                         _evt('Button', [val, false]);
                 });
                 
@@ -118,7 +121,7 @@
             
             /* Events */
             
-            if( _options.allow_wheel )
+            if( _options.allowWheel )
             {
                 $wrap.bind('DOMMouseScroll', _handleWheel);
                 $wrap.bind('mousewheel', _handleWheel);
@@ -129,18 +132,18 @@
                 var key = e.which,
                     val = $this.val();
                 
-                if( _options.allow_arrows )
+                if( _options.allowArrows )
                     switch( key )
                     {
                         // Up arrow
                         case 38:
-                            val = _step( _options.arrow_step );
+                            val = _step( _options.arrowStep );
                             _evt('Arrow', [val, true]);
                         break;
 
                         // Down arrow
                         case 40:
-                            val = _step( -_options.arrow_step );
+                            val = _step( -_options.arrowStep );
                             _evt('Arrow', [val, false]);
                         break;
                     }
@@ -168,10 +171,10 @@
 
                 if( d )
                 {
-                    if( _options.prevent_wheel_acceleration )
+                    if( _options.preventWheelAcceleration )
                         d = d < 0 ? -1 : 1;
                     
-                    var val = _step( _options.wheel_step * d );
+                    var val = _step( _options.wheelStep * d );
                     
                     _evt('Wheel', [val, d > 0]);
                     
@@ -219,7 +222,7 @@
             function _decimal_round( num, precission )
             {
                 if( typeof precission == 'undefined' )
-                    precission =  _options.float_precission;
+                    precission =  _options.floatPrecission;
                 
                 var pow = Math.pow(10, precission);
                 num = Math.round( num * pow ) / pow;
