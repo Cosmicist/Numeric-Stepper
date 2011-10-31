@@ -25,6 +25,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     font: 11px Arial, sans-serif;
 }
 
+.stepper-wrap input {
+    text-align: right;
+}
+
 .stepper-btn-wrap {
     position: absolute;
     top: 0;
