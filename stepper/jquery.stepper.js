@@ -162,12 +162,16 @@
             
             function _handleWheel(e)
             {
-                var d;
+                // Prevent actual page scrolling
+                e.preventDefault();
+                
+                var d,
+                    evt = e.originalEvent;
 
-                if( e.wheelDelta )
-                    d = e.wheelDelta / 120;
-                else if( e.detail )
-                    d = -e.detail / 3;
+                if( evt.wheelDelta )
+                    d = evt.wheelDelta / 120;
+                else if( evt.detail )
+                    d = -evt.detail / 3;
 
                 if( d )
                 {
@@ -177,9 +181,6 @@
                     var val = _step( _options.wheelStep * d );
                     
                     _evt('Wheel', [val, d > 0]);
-                    
-                    // Prevent actual page scrolling
-                    e.preventDefault();
                 }
             }
             
