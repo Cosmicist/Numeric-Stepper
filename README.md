@@ -35,6 +35,10 @@ option can have multiple values, the default one will be in bold._
 * array **preventWheelAcceleration** _true_
   In some systems, like OS X, the wheel has acceleration, and this may cause
   extremeply high increments, enable this option to prevent this.
+* string **incrementButton** _&blacktriangle;_
+  The content (html) for the increment button
+* string **decrementButton** _&blacktriangledown;_
+  The content (html) for the decrement button
 
 ### HTML5 settings
 
