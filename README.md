@@ -16,23 +16,23 @@ option can have multiple values, the default one will be in bold._
 * string **type** _**"float"**/"int"_  
   This option indicates whether the input will accept decimal values or just
   integers.
-* int **floatPrecission** _**2**_  
+* int **floatPrecission** _2_  
   Indicates the floating point precission for decimals. A value of 2 may result
   in a value like 2.14274 to be shown as 2.14.
-* bool **ui** _**true**_
+* bool **ui** _true_
   Whether to show the up/down buttons next to the input.
-* bool **allowWheel** _**true**_
+* bool **allowWheel** _true_
   Allow mouse wheel to increment/decrement number.
-* bool **allowArrows** _**true**_
+* bool **allowArrows** _true_
   Allow keyboard up/down arrows to increment/decrement number.
-* number **arrowStep** _**1**_
+* number **arrowStep** _1_
   The increment/decrement for keyboard arrows.
-* number **wheelStep** _**1**_
+* number **wheelStep** _1_
   The increment/decrement for mouse wheel.
-* array **limit** _**[]**_
+* array **limit** _[]_
   The min and max numbers allowed by the input expressed as an array.  
   E.g: `[-5,5]` would only allow a range of numbers between -5 and 5.
-* array **preventWheelAcceleration** _**true**_
+* array **preventWheelAcceleration** _true_
   In some systems, like OS X, the wheel has acceleration, and this may cause
   extremeply high increments, enable this option to prevent this.
 
