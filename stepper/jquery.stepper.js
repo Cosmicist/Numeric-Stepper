@@ -27,21 +27,23 @@
     $.fn.stepper = function( options )
     {
         var _defaults = {
-            type: 'float',                      // or 'int'
-            floatPrecission: 2,                // decimal precission
-            ui: true,                           // +/- buttons
-            allowWheel: true,                  // mouse wheel
-            allowArrows: true,                 // keyboar arrows (up, down)
-            arrowStep: 1,                      // ammount to increment with arrow keys
-            wheelStep: 1,                      // ammount to increment with mouse wheel
-            limit: [null, null],                // [min, max] limit
-            preventWheelAcceleration: true,   // In some systems, like OS X, the wheel has acceleration, enable this option to prevent it
+            type: 'float',                  // or 'int'
+            floatPrecission: 2,             // decimal precission
+            ui: true,                       // +/- buttons
+            allowWheel: true,               // mouse wheel
+            allowArrows: true,              // keyboar arrows (up, down)
+            arrowStep: 1,                   // ammount to increment with arrow keys
+            wheelStep: 1,                   // ammount to increment with mouse wheel
+            limit: [null, null],            // [min, max] limit
+            preventWheelAcceleration: true, // In some systems, like OS X, the wheel has acceleration, enable this option to prevent it
+            incrementButton: '&blacktriangle;',
+            decrementButton: '&blacktriangledown;',
             
             // Events
-            onStep: null,    // fn( [number] val, [bool] up )
-            onWheel: null,   // fn( [number] val, [bool] up )
-            onArrow: null,   // fn( [number] val, [bool] up )
-            onButton: null,  // fn( [number] val, [bool] up )
+            onStep: null,   // fn( [number] val, [bool] up )
+            onWheel: null,  // fn( [number] val, [bool] up )
+            onArrow: null,  // fn( [number] val, [bool] up )
+            onButton: null, // fn( [number] val, [bool] up )
             onKeyUp: null   // fn( [number] val )
         };
         
@@ -82,8 +84,8 @@
             if( _options.ui )
             {
                 var $btnWrap = $('<div class="stepper-btn-wrap"/>').appendTo( $wrap ),
-                    $btnUp   = $('<a class="stepper-btn-up">+</a>').appendTo( $btnWrap ),
-                    $btnDown = $('<a class="stepper-btn-dwn">&#8210;</a>').appendTo( $btnWrap );
+                    $btnUp   = $('<a class="stepper-btn-up">'+_options.incrementButton+'</a>').appendTo( $btnWrap ),
+                    $btnDown = $('<a class="stepper-btn-dwn">'+_options.decrementButton+'</a>').appendTo( $btnWrap );
                 
                 $wrap.css({
                     'margin-top': $this.css('margin-top'),
