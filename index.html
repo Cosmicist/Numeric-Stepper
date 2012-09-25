@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Numeric Stepper by xFlatlinex</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Numeric Stepper</h1>
+        <p>Simple and highly customizable numeric stepper jQuery plugin.</p>
+
+        <p class="view"><a href="https://github.com/xFlatlinex/Numeric-Stepper">View the Project on GitHub <small>xFlatlinex/Numeric-Stepper</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/xFlatlinex/Numeric-Stepper/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/xFlatlinex/Numeric-Stepper/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/xFlatlinex/Numeric-Stepper">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Numeric Stepper Plug-in for jQuery</h1>
+
+<p>Simple and highly customizable jQuery plug-in Turns a text input into a numeric
+stepper.</p>
+
+<h2>Settings</h2>
+
+<p>Every options can be overriden by using it's html5 data attribute equivalent,
+allowing you to have completely different steppers with one global call.</p>
+
+<p>Here's a comprehensive list of all the options.</p>
+
+<p><em>The option type appears before each option and default values apper next. If an
+option can have multiple values, the default one will be in bold.</em></p>
+
+<ul>
+<li>string <strong>type</strong> <em><strong>"float"</strong>/"int"</em><br>
+This option indicates whether the input will accept decimal values or just
+integers.</li>
+<li>int <strong>floatPrecission</strong> <em>2</em><br>
+Indicates the floating point precission for decimals. A value of 2 may result
+in a value like 2.14274 to be shown as 2.14.</li>
+<li>bool <strong>ui</strong> <em>true</em>
+Whether to show the up/down buttons next to the input.</li>
+<li>bool <strong>allowWheel</strong> <em>true</em>
+Allow mouse wheel to increment/decrement number.</li>
+<li>bool <strong>allowArrows</strong> <em>true</em>
+Allow keyboard up/down arrows to increment/decrement number.</li>
+<li>number <strong>arrowStep</strong> <em>1</em>
+The increment/decrement for keyboard arrows.</li>
+<li>number <strong>wheelStep</strong> <em>1</em>
+The increment/decrement for mouse wheel.</li>
+<li>array <strong>limit</strong> <em>[]</em>
+The min and max numbers allowed by the input expressed as an array.<br>
+E.g: <code>[-5,5]</code> would only allow a range of numbers between -5 and 5.</li>
+<li>array <strong>preventWheelAcceleration</strong> <em>true</em>
+In some systems, like OS X, the wheel has acceleration, and this may cause
+extremeply high increments, enable this option to prevent this.</li>
+<li>string <strong>incrementButton</strong> <em>&amp;blacktriangle;</em>
+The content (html) for the increment button</li>
+<li>string <strong>decrementButton</strong> <em>&amp;blacktriangledown;</em>
+The content (html) for the decrement button</li>
+</ul><h3>HTML5 settings</h3>
+
+<p>All of the options explained above can be set on a per-input basis as it's HTML5
+data attribute equivalent, i.e., prepend "data-" and camelization becomes
+hyphenation.</p>
+
+<p><strong>E.g:</strong></p>
+
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">data-wheel-step=</span><span class="s">"2"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<h4>Caveat</h4>
+
+<p>With the <code>data-limit</code> option, though, there's a caveat you should be aware of:
+If you intend to only set one limit (being min or max), in JavaScript you could
+just leave a value blank, like so <code>limit: [0,]</code> this would set the min limit to 0 with
+no max limit. But to achieve the same thing with the attribute, you <strong>must</strong>
+explicitly set both limits, this means that to leave a limit unset you must
+set it to <code>null</code> like this <code>data-limit="[0,null]"</code>.</p>
+
+<h3>Hooks/Events</h3>
+
+<p>As of now, the plugin does not trigger any events but hooks/callbacks can be
+registered by passing them as options in the settings.<br>
+Real event triggering is planned to be implemented in the somewhat-near future.</p>
+
+<p>All the callbacks, with the exception of <em>onKeyUp</em>, receive the number value and
+a boolean (up) indicating whether it was an increment or not.<br>
+The <em>onKeyUp</em> callback will receive the "up" parameter in the future.</p>
+
+<p>These are all hooks supported up to the current version:</p>
+
+<ul>
+<li>onStep ( <em>number</em> value, <em>bool</em> up )
+Fired each time the value is changed by the buttons, arrow keys or mouse
+wheel.<br>
+</li>
+<li>onWheel ( <em>number</em> value, <em>bool</em> up )
+Fired each time the value is changed by the buttons, arrow keys or mouse
+wheel.</li>
+<li>onArrow ( <em>number</em> value, <em>bool</em> up )</li>
+<li>onButton ( <em>number</em> value, <em>bool</em> up )</li>
+<li>onKeyUp ( <em>number</em> value )</li>
+</ul><h2>Usage</h2>
+
+<h3>Default Settings</h3>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'.numeric'</span><span class="p">).</span><span class="nx">stepper</span><span class="p">();</span>
+</pre></div>
+
+<h3>Custom settings</h3>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'.numeric'</span><span class="p">).</span><span class="nx">stepper</span><span class="p">({</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">'float'</span>       <span class="c1">// Allow floating point numbers</span>
+    <span class="nx">wheel_step</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>       <span class="c1">// Wheel increment is 1</span>
+    <span class="nx">arrow_step</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>    <span class="c1">// Up/Down arrows increment is 0.5</span>
+    <span class="nx">limit</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,],</span>         <span class="c1">// No negative values</span>
+    <span class="nx">onStep</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">val</span><span class="p">,</span> <span class="nx">up</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// do something here...</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/xFlatlinex">xFlatlinex</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
