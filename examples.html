@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Numeric Stepper by xFlatlinex</title>
+
+    <link rel="stylesheet" href="stylesheets/jquery.stepper.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>Numeric Stepper</h1>
+                <p>Simple and highly customizable numeric stepper jQuery plugin.</p>
+
+                <p class="view"><a href="index.html"><big>Go back to the docs</big></a></p>
+
+                <p class="view"><a href="https://github.com/xFlatlinex/Numeric-Stepper">View the Project on GitHub <small>xFlatlinex/Numeric-Stepper</small></a></p>
+
+
+                <ul>
+                    <li><a href="https://github.com/xFlatlinex/Numeric-Stepper/zipball/master">Download <strong>ZIP File</strong></a></li>
+                    <li><a href="https://github.com/xFlatlinex/Numeric-Stepper/tarball/master">Download <strong>TAR Ball</strong></a></li>
+                    <li><a href="https://github.com/xFlatlinex/Numeric-Stepper">View On <strong>GitHub</strong></a></li>
+                </ul>
+            </header>
+            <section>
+                <h1>Examples</h1>
+
+<p>
+    <label for="s">Default settings</label><br/>
+    <input type="text" size="2" id="s"/>
+</p>
+
+<p>
+    <label for="s2">Default: 3.6, Wheel step: 0.5, Arrow step: 0.25</label><br/>
+    <input type="text" size="2" id="s2" value="3.6" data-wheel-step="0.5" data-arrow-step="0.25"/>
+</p>
+
+<p>
+    <label for="s3">No UI</label> (use mouse wheel or arrow keys)<br/>
+    <input type="text" size="2" id="s3" class="numeric" data-ui="false"/>
+</p>
+
+<p>
+    <label for="s4">Limited</label> (Min: 0, Max: 10)<br/>
+    <input type="text" size="2" id="stepper4" class="numeric" data-limit="[0,10]"/>
+</p>
+
+<p>
+    <label for="s5">Min limit only</label> (Min: 10)<br/>
+    <input type="text" size="2" id="s5" class="numeric" data-limit="[10,null]"/>
+</p>
+
+<p>
+    <label for="s6">Custom margin</label><br/>
+    <input type="text" size="2" id="s6" class="numeric"/> <em>The margin is set on the input and the plugin moves it to it's wrapper</em>
+</p>
+
+<p>
+    <label for="s7">onStep event attached on init</label><br/>
+    <input type="text" size="2" id="s7"/>
+</p>
+
+<p>
+    <label for="s8">onStep event attached after init</label><br/>
+    <input type="text" size="2" id="s8" class="numeric"/>
+</p>
+
+<h2>Events output <a href="#" id="clear-event-log">[clear]</a></h2>
+<ul id="out"></ul>
+
+<h2>JavaScript</h2>
+
+<pre id="jscode-pre"></pre>
+
+            </section>
+            <footer>
+                <p>This project is maintained by <a href="https://github.com/xFlatlinex">xFlatlinex</a></p>
+                <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+            </footer>
+        </div>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="javascripts/scale.fix.js"></script>
+        <script src="javascripts/jquery.stepper.js"></script>
+        <script src="javascripts/jquery.color.js"></script>
+        <script id="jscode">
+        // Default and options from html5 data attributes
+        $('#s, .numeric').stepper();
+
+        // Custom step
+        $('#s2').stepper({
+            wheel_step: 1,
+            arrow_step: 0.2
+        });
+
+        // Even binding on init
+        $('#s7').stepper({ onStep: stepCallback });
+
+        // Event binding after init
+        $('#s8').data('stepper').onStep(stepCallback);
+
+        function stepCallback( val, up )
+        {
+            var li = $('<li><strong>Target:</strong> #'+this.attr('id')+
+                       ' | <strong>Val:</strong> '+val+
+                       ' | <strong>Up:</strong> '+(up ? 'true' : 'false')+'</li>');
+            $('#out').append( li );
+            li.css('background-color', '#ffc').animate({'background-color': '#eee'});
+        }
+        </script>
+        <script>
+        $('#jscode-pre').html($.trim(
+            $('#jscode').html()
+                .replace(/[ ]{8}(.+)/g, '$1')
+                .replace(/\</g, '&lt;')
+                .replace(/\>/g, '&gt;')
+        ));
+
+        $('#clear-event-log').click(function(e)
+        {
+            e.preventDefault();
+
+            $('#out').html('');
+        });
+        </script>
+    </body>
+    </html>
