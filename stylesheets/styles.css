@@ -48,6 +48,16 @@ a small {
   margin:0 auto;
 }
 
+.info {
+    background: #e6eeff;
+    border: 1px solid #9bacd0;
+    border-radius: 3px;
+    box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7) inset;
+    color: #334a91;
+    margin-bottom: 1.5em;
+    padding: 0.5em;
+}
+
 blockquote {
   border-left:1px solid #e5e5e5;
   margin:0;
