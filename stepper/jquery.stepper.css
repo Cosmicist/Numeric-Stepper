@@ -1,24 +1,30 @@
 /*
-Copyright (c) Luciano Longo
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
+ * Numeric Stepper jQuery plugin v1.3
+ * 
+ * Licensed under the MIT License:
+ * 
+ * Copyright (c) Luciano Longo
+ * https://github.com/xFlatlinex/Numeric-Stepper
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the
+ * following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+ * NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+ * USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 .stepper-wrap {
     position: relative;
     display: inline-block;
@@ -38,31 +44,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     overflow: hidden;
     border: 1px solid #ccc;
     border-left: 0;
-
-    /* Border Radius */
-    -webkit-border-radius: 0 2px 2px 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-       -moz-border-radius: 0 2px 2px 0; /* FF1-3.6 */
-            border-radius: 0 2px 2px 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-    /* useful if you don't want a bg color from leaking outside the border: */        
-    -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
-
-    /* Background Gradient */
+    -webkit-border-radius: 0 2px 2px 0;
+    -moz-border-radius: 0 2px 2px 0;
+    border-radius: 0 2px 2px 0;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
     background-color: #ddd;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ddd)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #eee, #ddd); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #eee, #ddd); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #eee, #ddd); /* IE10 */
-    background-image:      -o-linear-gradient(top, #eee, #ddd); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #eee, #ddd);
-              filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eee', EndColorStr='#ddd'); /* IE6-IE9 */
-    
-    /* Box Sizing */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#dddddd) );
+    background-image: -webkit-linear-gradient(top, #eeeeee, #dddddd);
+    background-image: -moz-linear-gradient(top, #eeeee, #dddddd);
+    background-image: -ms-linear-gradient(top, #eeeeee, #dddddd);
+    background-image: -o-linear-gradient(top, #eeeeee, #dddddd);
+    background-image: linear-gradient(top, #eeeeee, #dddddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#dddddd' );
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 .stepper-btn-wrap a {
+    cursor: pointer;
     display: block;
     height: 50%;
     overflow: hidden;
@@ -70,10 +72,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     text-align: center;
     text-decoration: none;
     text-shadow: 1px 1px 0 #fff;
-    cursor: default;
     color: #666;
-
-    /* Box Sizing */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
