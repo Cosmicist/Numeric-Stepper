@@ -1,12 +1,12 @@
 ;
 (function($) {
     /*
-     * Numeric Stepper jQuery plugin v1.3
-     * 
+     * Numeric Stepper jQuery plugin v1.4
+     *
      * Licensed under MIT:
-     * 
+     *
      * Copyright (c) Luciano Longo
-     * 
+     *
      * Permission is hereby granted, free of charge, to any person obtaining a
      * copy of this software and associated documentation files (the
      * "Software"), to deal in the Software without restriction, including
@@ -14,10 +14,10 @@
      * distribute, sublicense, and/or sell copies of the Software, and to permit
      * persons to whom the Software is furnished to do so, subject to the
      * following conditions:
-     * 
+     *
      * The above copyright notice and this permission notice shall be included
      * in all copies or substantial portions of the Software.
-     * 
+     *
      * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
      * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
      * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
@@ -39,7 +39,7 @@
                                                 // the wheel has acceleration,
                                                 // enable this option to prevent
                                                 // it
-            type : 'float', // or 'int'
+            type : 'int', // or 'float'
             ui : true, // +/- buttons
             wheelStep : 1, // ammount to increment with mouse wheel
 
@@ -152,14 +152,22 @@
 
                         // Allow only arrow keys, misc modifier chars and
                         // numbers and period (including keypad)
-                        if ((key < 37 && key > 40) || (key > 57 && key < 91) || (key > 105 && key != 110 && key != 190))
+                        if (!isArrow(key)
+                            && !isBackspace(key)
+                            && !isDecimal(key)
+                            && !isDelete(key)
+                            && !isEnd(key)
+                            && !isEnter(key)
+                            && !isHome(key)
+                            && !isNumber(key)
+                            && !isTab(key))
                             e.preventDefault();
 
                         // Allow only one period if float is enabled
-                        if (_options.type == "float" && $.inArray(key, [ 110, 190 ]) != -1 && val.indexOf('.') != -1)
+                        if (_options.type == "float" && isDecimal(key) && val.indexOf('.') != -1)
                             e.preventDefault();
                         // Do not allow period if float is not enabled
-                        else if (_options.type != "float" && $.inArray(key, [ 110, 190 ]) != -1)
+                        else if (_options.type != "float" && isDecimal(key))
                             e.preventDefault();
 
                         // Allow only if the value is within limits
@@ -219,19 +227,28 @@
                         else if (max !== null && num > max)
                             num = max;
 
-                        return _decimal_round(num);
+                        return _options.type == 'int' ? num : _decimal_round(num);
                     }
 
                     function _decimal_round(num, precision) {
-    					if (typeof (precision) == 'undefined')
-							precision = _options.precision;
+                      if (typeof (precision) == 'undefined') {
+                        precision = _options.precision;
+                      }
 
-                        var pow = Math.pow(10, precision);
-                        num = Math.round(num * pow) / pow;
+                      var pow = Math.pow(10, precision);
 
-                        return num;
+                      return (Math.round(num * pow) / pow).toFixed(precision);
                     }
 
+                    function isArrow(key)     { return key > 36 && key < 41; }
+                    function isBackspace(key) { return key == 8; }
+                    function isDecimal(key)   { return key == 110 || key == 190; }
+                    function isDelete(key)    { return key == 46; }
+                    function isEnd(key)       { return key == 35; }
+                    function isEnter(key)     { return key == 13; }
+                    function isHome(key)      { return key == 36; }
+                    function isNumber(key)    { return (key > 47 && key < 58) || (key > 95 && key < 106); }
+                    function isTab(key)       { return key == 9; }
                 });
     }
 })(jQuery);
