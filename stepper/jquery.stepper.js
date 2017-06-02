@@ -53,7 +53,9 @@
               var $data = $(this).data();
               delete $data.stepper;
 
-              var _options = $.extend({}, _defaults, options, $data), $this = $(this), $wrap = $('<div class="stepper-wrap"/>');
+              var _options = $.extend({}, _defaults, options, $data);
+              var $this = $(this);
+              var $wrap = $('<div class="stepper-wrap"/>');
 
               if ($this.data('stepper'))
                 return;
@@ -112,15 +114,19 @@
                 $btnUp.mousedown(function(e) {
                   e.preventDefault();
 
-                  var val = _step(_options.arrowStep);
-                  _evt('Button', [ val, true ]);
+                  if (!$this.is(":disabled")) {
+                    var val = _step(_options.arrowStep);
+                    _evt('Button', [ val, true ]);
+                  }
                 });
 
                 $btnDown.mousedown(function(e) {
                   e.preventDefault();
 
-                  var val = _step(-_options.arrowStep);
-                  _evt('Button', [ val, false ]);
+                  if (!$this.is(":disabled")) {
+                    var val = _step(-_options.arrowStep);
+                    _evt('Button', [ val, false ]);
+                  }
                 });
 
                 $(document).mouseup(function() {
@@ -178,19 +184,21 @@
                 // Prevent actual page scrolling
                 e.preventDefault();
 
-                var d, evt = e.originalEvent ? e.originalEvent : e;
+                if (!$this.is(":disabled")) {
+                  var d, evt = e.originalEvent ? e.originalEvent : e;
 
-                if (evt.wheelDelta) d = evt.wheelDelta / 120;
-                else if (evt.detail) d = -evt.detail / 3;
-                else if (evt.deltaY) d = -evt.deltaY / 3;
-                else d = 0;
+                  if (evt.wheelDelta) d = evt.wheelDelta / 120;
+                  else if (evt.detail) d = -evt.detail / 3;
+                  else if (evt.deltaY) d = -evt.deltaY / 3;
+                  else d = 0;
 
-                if (d) {
-                  if (_options.preventWheelAcceleration) d = d < 0 ? -1 : 1;
+                  if (d) {
+                    if (_options.preventWheelAcceleration) d = d < 0 ? -1 : 1;
 
-                  var val = _step(_options.wheelStep * d);
+                    var val = _step(_options.wheelStep * d);
 
-                  _evt('Wheel', [ val, d > 0 ]);
+                    _evt('Wheel', [ val, d > 0 ]);
+                  }
                 }
               }
 
