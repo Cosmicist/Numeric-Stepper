@@ -95,16 +95,17 @@
 
       /* UI */
 
+      var $wrap = _options.layout == 'horizontal' ? $('<div class="' + _options.horizontalWrapperClass + '"/>')
+                                                  : $('<div class="' + _options.verticalWrapperClass + '"/>');
+
+      $wrap.insertAfter($this);
+      $this.appendTo($wrap);
+
       if (_options.ui) {
         if (_options.layout == 'horizontal') {
           // Display the control in a horizontal layout, with the decrement
           // button on the left hand side of the input control and the
           // increment button on its right.
-          var $wrap = $('<div class="' + _options.horizontalWrapperClass + '"/>');
-
-          $wrap.insertAfter($this);
-          $this.appendTo($wrap);
-
           var $btnDownWrap = $('<div class="' + _options.horizontalDecrementClass + '"/>').insertBefore($this);
           var $btnDown = $('<a href="javascript:">'
                                       + _options.decrementButton
@@ -127,11 +128,6 @@
           // and increment buttons to the right hand side of the input control
           // with the increment button at the top and the decrement button at
           // the bottom.
-          var $wrap = $('<div class="' + _options.verticalWrapperClass + '"/>');
-
-          $wrap.insertAfter($this);
-          $this.appendTo($wrap);
-
           var $btnWrap = $('<div class="' + _options.verticalButtonClass + '"/>').appendTo($wrap);
 
           var $btnUp = $('<a href="javascript:">'
