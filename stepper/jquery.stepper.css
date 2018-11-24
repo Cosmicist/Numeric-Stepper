@@ -1,11 +1,10 @@
 /*
- * Numeric Stepper jQuery plugin v1.3
- * 
- * Licensed under the MIT License:
- * 
+ * Numeric Stepper jQuery plugin v2.0
+ *
+ * Licensed under MIT:
+ *
  * Copyright (c) Luciano Longo
- * https://github.com/xFlatlinex/Numeric-Stepper
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -13,10 +12,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to permit
  * persons to whom the Software is furnished to do so, subject to the
  * following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
  * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
@@ -25,59 +24,95 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
  * USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-.stepper-wrap {
-    position: relative;
-    display: inline-block;
-    font: 11px Arial, sans-serif;
+.stepper input {
+  text-align : right;
 }
 
-.stepper-wrap input {
-    text-align: right;
+.stepper .stepper-button {
+          background-clip : padding-box;
+         background-color : #DDD;
+         background-image : -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(#DDDDDD) );
+         background-image : -webkit-linear-gradient(top, #EEEEEE, #DDDDDD);
+         background-image : -moz-linear-gradient(top, #EEEEE, #DDDDDD);
+         background-image : -ms-linear-gradient(top, #EEEEEE, #DDDDDD);
+         background-image : -o-linear-gradient(top, #EEEEEE, #DDDDDD);
+         background-image : linear-gradient(top, #EEEEEE, #DDDDDD);
+                   border : 1px solid #CCC;
+                   filter : progid:DXImageTransform.Microsoft.gradient(startColorStr='#EEEEEE', EndColorStr='#DDDDDD' );
+     -moz-background-clip : padding;
+  -webkit-background-clip : padding-box;
+       -webkit-box-sizing : border-box;
+          -moz-box-sizing : border-box;
+               box-sizing : border-box;
 }
 
-.stepper-btn-wrap {
-    position: absolute;
-    top: 0;
-    right: -15px;
-    width: 15px;
-    height: 100%;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    border-left: 0;
-    -webkit-border-radius: 0 2px 2px 0;
-    -moz-border-radius: 0 2px 2px 0;
-    border-radius: 0 2px 2px 0;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    background-color: #ddd;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#dddddd) );
-    background-image: -webkit-linear-gradient(top, #eeeeee, #dddddd);
-    background-image: -moz-linear-gradient(top, #eeeee, #dddddd);
-    background-image: -ms-linear-gradient(top, #eeeeee, #dddddd);
-    background-image: -o-linear-gradient(top, #eeeeee, #dddddd);
-    background-image: linear-gradient(top, #eeeeee, #dddddd);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#dddddd' );
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+.stepper .stepper-button a {
+               color : #666;
+              cursor : pointer;
+           font-size : 80%;
+            overflow : hidden;
+            position : relative;
+          text-align : center;
+     text-decoration : none;
+         text-shadow : 1px 1px 0 #FFF;
+  -webkit-box-sizing : border-box;
+     -moz-box-sizing : border-box;
+          box-sizing : border-box;
 }
 
-.stepper-btn-wrap a {
-    cursor: pointer;
-    display: block;
-    height: 50%;
-    overflow: hidden;
-    line-height: 100%;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 1px 1px 0 #fff;
-    color: #666;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+.stepper .stepper-button a:hover {
+  background : rgba(255, 255, 255, 0.5);
 }
 
-.stepper-btn-wrap a:hover {
-    background: rgba(255, 255, 255, 0.5);
+.stepper.stepper-horizontal {
+  display : table;
+}
+
+.stepper.stepper-horizontal > * {
+         display : table-cell;
+  vertical-align : middle;
+}
+
+.stepper.stepper-horizontal .stepper-button {
+  text-align : center;
+       width : 1.5em;
+}
+
+.stepper.stepper-horizontal .stepper-button.stepper-button-down {
+     border-right-width : 0;
+  -webkit-border-radius : 0.25em 0 0 0.25em;
+     -moz-border-radius : 0.25em 0 0 0.25em;
+          border-radius : 0.25em 0 0 0.25em;
+}
+
+.stepper.stepper-horizontal .stepper-button.stepper-button-up {
+      border-left-width : 0;
+                  right : -2em;
+  -webkit-border-radius : 0 0.25em 0.25em 0;
+     -moz-border-radius : 0 0.25em 0.25em 0;
+          border-radius : 0 0.25em 0.25em 0;
+}
+
+.stepper.stepper-vertical {
+   display : inline-block;
+  position : relative;
+}
+
+.stepper.stepper-vertical .stepper-button {
+            border-left : 0;
+                  right : -1em;
+                 height : 100%;
+               overflow : hidden;
+               position : absolute;
+                    top : 0;
+                  width : 1em;
+  -webkit-border-radius : 0 0.25em 0.25em 0;
+     -moz-border-radius : 0 0.25em 0.25em 0;
+          border-radius : 0 0.25em 0.25em 0;
+}
+
+.stepper.stepper-vertical .stepper-button a {
+      display : block;
+       height : 50%;
+  line-height : 100%;
 }
