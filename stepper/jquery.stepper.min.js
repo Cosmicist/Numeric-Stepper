@@ -1,5 +1,5 @@
 /*
- * Numeric Stepper jQuery plugin v2.0
+ * Numeric Stepper jQuery plugin v2.1
  *
  * Licensed under MIT:
  *

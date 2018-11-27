@@ -1,5 +1,5 @@
 /*
- * Numeric Stepper jQuery plugin v2.0
+ * Numeric Stepper jQuery plugin v2.1
  *
  * Licensed under MIT:
  *
@@ -65,12 +65,13 @@
 }
 
 .stepper.stepper-horizontal {
-  display : table;
+  display : inline-flex;
 }
 
 .stepper.stepper-horizontal > * {
-         display : table-cell;
-  vertical-align : middle;
+          display : flex;
+      align-items : center;
+  justify-content : center;
 }
 
 .stepper.stepper-horizontal .stepper-button {
