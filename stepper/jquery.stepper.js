@@ -176,45 +176,60 @@
 
       if (_options.allowWheel) $wrap.bind('DOMMouseScroll mousewheel wheel', _handleWheel);
 
-      $wrap.keypress(function(e) {
-            var key = e.which, val = $this.val();
-            if (_options.allowArrows)
-              switch (key) {
-              // Up arrow
-              case 38:
-                val = _step(_options.arrowStep);
-                _evt('Arrow', [ val, true ]);
-                break;
+      $wrap.keydown(function(e) {
+        // Detect and handle arrow keys, which can be handled only through
+        // the keydown event.
+        var key = e.which;
 
-              // Down arrow
-              case 40:
-                val = _step(-_options.arrowStep);
-                _evt('Arrow', [ val, false ]);
-                break;
-              }
-
-            // Allow only arrow keys, misc modifier chars and
-            // numbers and period (including keypad)
-            if (!isArrow(key)
-              && !isBackspace(key)
-              && !isDecimal(key)
-              && !isDelete(key)
-              && !isEnd(key)
-              && !isEnter(key)
-              && !isHome(key)
-              && !isNumber(key)
-              && !isTab(key))
+        if (_options.allowArrows)
+          switch (key) {
+            // Page up
+            case 33:
+              _evt('Wheel', [ _step(_options.wheelStep), true ]);
               e.preventDefault();
+              break;
 
-            // Allow only one period if float is enabled
-            if (_options.type == "float" && isDecimal(key) && val.indexOf('.') != -1) e.preventDefault();
-            // Do not allow period if float is not enabled
-            else if (_options.type != "float" && isDecimal(key)) e.preventDefault();
+            // Page down
+            case 34:
+              _evt('Wheel', [ _step(-_options.wheelStep), false ]);
+              e.preventDefault();
+              break;
 
-            // Allow only if the value is within limits
-            val = parseFloat(val + String.fromCharCode(key));
-            if (val != _limit(val)) e.preventDefault();
-          }).keyup(function(e) {
+            // Up arrow
+            case 38:
+              _evt('Arrow', [ _step(_options.arrowStep), true ]);
+              break;
+
+            // Down arrow
+            case 40:
+              _evt('Arrow', [ _step(-_options.arrowStep), false ]);
+              break;
+          }
+      }).keypress(function(e) {
+        var key = e.which, val = $this.val();
+
+        // Allow only numbers, period, and misc modifier chars. These need to
+        // be handled through the keypress event so that numbers can be read
+        // through the regular number bar as well as the numeric keypad.
+        if (!isBackspace(key)
+          && !isDecimal(key)
+          && !isDelete(key)
+          && !isEnd(key)
+          && !isEnter(key)
+          && !isHome(key)
+          && !isNumber(key)
+          && !isTab(key))
+          e.preventDefault();
+
+        // Allow only one period if float is enabled.
+        if (_options.type == "float" && isDecimal(key) && val.indexOf('.') != -1) e.preventDefault();
+        // Do not allow period if float is not enabled
+        else if (_options.type != "float" && isDecimal(key)) e.preventDefault();
+
+        // Allow only if the value is within limits.
+        val = parseFloat(val + String.fromCharCode(key));
+        if (val != _limit(val)) e.preventDefault();
+      }).keyup(function(e) {
         _evt('KeyUp', [ $this.val() ]);
       });
 
@@ -280,7 +295,6 @@
         return (Math.round(num * pow) / pow).toFixed(precision);
       }
 
-      function isArrow(key) { return key > 36 && key < 41; }
       function isBackspace(key) { return key == 8; }
       function isDecimal(key) { return key == 110 || key == 190; }
       function isDelete(key) { return key == 46; }
