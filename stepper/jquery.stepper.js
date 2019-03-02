@@ -1,5 +1,5 @@
 /*
- * Numeric Stepper jQuery plugin v2.1
+ * Numeric Stepper jQuery plugin v2.2
  *
  * Licensed under MIT:
  *
@@ -176,7 +176,7 @@
 
       if (_options.allowWheel) $wrap.bind('DOMMouseScroll mousewheel wheel', _handleWheel);
 
-      $wrap.keydown(function(e) {
+      $wrap.keypress(function(e) {
             var key = e.which, val = $this.val();
             if (_options.allowArrows)
               switch (key) {
@@ -287,7 +287,7 @@
       function isEnd(key) { return key == 35; }
       function isEnter(key) { return key == 13; }
       function isHome(key) { return key == 36; }
-      function isNumber(key) { return (key > 47 && key < 58) || (key > 95 && key < 106); }
+      function isNumber(key) { return key > 47 && key < 58; }
       function isTab(key) { return key == 9; }
     });
   }
