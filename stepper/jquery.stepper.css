@@ -1,5 +1,5 @@
 /*
- * Numeric Stepper jQuery plugin v2.2
+ * Numeric Stepper jQuery plugin v2.3
  *
  * Licensed under MIT:
  *
@@ -25,95 +25,162 @@
  * USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 .stepper input {
-  text-align : right;
+    text-align: right;
 }
 
 .stepper .stepper-button {
-          background-clip : padding-box;
-         background-color : #DDD;
-         background-image : -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(#DDDDDD) );
-         background-image : -webkit-linear-gradient(top, #EEEEEE, #DDDDDD);
-         background-image : -moz-linear-gradient(top, #EEEEE, #DDDDDD);
-         background-image : -ms-linear-gradient(top, #EEEEEE, #DDDDDD);
-         background-image : -o-linear-gradient(top, #EEEEEE, #DDDDDD);
-         background-image : linear-gradient(top, #EEEEEE, #DDDDDD);
-                   border : 1px solid #CCC;
-                   filter : progid:DXImageTransform.Microsoft.gradient(startColorStr='#EEEEEE', EndColorStr='#DDDDDD' );
-     -moz-background-clip : padding;
-  -webkit-background-clip : padding-box;
-       -webkit-box-sizing : border-box;
-          -moz-box-sizing : border-box;
-               box-sizing : border-box;
+    background-clip: padding-box;
+    background-color: #DDD;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(#DDDDDD));
+    background-image: -webkit-linear-gradient(top, #EEEEEE, #DDDDDD);
+    background-image: -moz-linear-gradient(top, #EEEEE, #DDDDDD);
+    background-image: -ms-linear-gradient(top, #EEEEEE, #DDDDDD);
+    background-image: -o-linear-gradient(top, #EEEEEE, #DDDDDD);
+    background-image: linear-gradient(top, #EEEEEE, #DDDDDD);
+    border: 1px solid #CCC;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#EEEEEE', EndColorStr='#DDDDDD');
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .stepper .stepper-button a {
-               color : #666;
-              cursor : pointer;
-           font-size : 60%;
-            overflow : hidden;
-            position : relative;
-          text-align : center;
-     text-decoration : none;
-         text-shadow : 1px 1px 0 #FFF;
-  -webkit-box-sizing : border-box;
-     -moz-box-sizing : border-box;
-          box-sizing : border-box;
+    color: #666;
+    cursor: pointer;
+    font-size: 60%;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #FFF;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .stepper .stepper-button a:hover {
-  background : rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.stepper.stepper-blue input,
+.stepper.stepper-green input,
+.stepper.stepper-red input,
+.stepper.stepper-turqoise input,
+.stepper.stepper-yellow input {
+    outline-color: transparent;
+}
+
+.stepper.stepper-blue input {
+    border: 1px solid #1EA0E6;
+    color: #1EA0E6;
+}
+
+.stepper.stepper-green input {
+    border: 1px solid #92D050;
+    color: #92D050;
+}
+
+.stepper.stepper-red input {
+    border: 1px solid #E10000;
+    color: #E10000;
+}
+
+.stepper.stepper-turqoise input {
+    border: 1px solid #00E1E1;
+    color: #00E1E1;
+}
+
+.stepper.stepper-yellow input {
+    border: 1px solid #FFC800;
+    color: #FFC800;
+}
+
+.stepper.stepper-blue .stepper-button {
+    background: #1EA0E6;
+    border-color: #1EA0E6;
+}
+
+.stepper.stepper-green .stepper-button {
+    background: #92D050;
+    border-color: #92D050;
+}
+
+.stepper.stepper-red .stepper-button {
+    background: #E10000;
+    border-color: #E10000;
+}
+
+.stepper.stepper-turqoise .stepper-button {
+    background: #00E1E1;
+    border-color: #00E1E1;
+}
+
+.stepper.stepper-yellow .stepper-button {
+    background: #FFC800;
+    border-color: #FFC800;
+}
+
+.stepper.stepper-blue .stepper-button a,
+.stepper.stepper-green .stepper-button a,
+.stepper.stepper-red .stepper-button a,
+.stepper.stepper-turqoise .stepper-button a,
+.stepper.stepper-yellow .stepper-button a {
+    color: #FFF;
+    text-shadow: none;
 }
 
 .stepper.stepper-horizontal {
-  display : inline-flex;
+    display: inline-flex;
 }
 
 .stepper.stepper-horizontal > * {
-          display : flex;
-      align-items : center;
-  justify-content : center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .stepper.stepper-horizontal .stepper-button {
-  text-align : center;
-       width : 1.5em;
+    text-align: center;
+    width: 1.75em;
 }
 
 .stepper.stepper-horizontal .stepper-button.stepper-button-down {
-     border-right-width : 0;
-  -webkit-border-radius : 0.25em 0 0 0.25em;
-     -moz-border-radius : 0.25em 0 0 0.25em;
-          border-radius : 0.25em 0 0 0.25em;
+    border-right-width: 0;
+    -webkit-border-radius: 0.25em 0 0 0.25em;
+    -moz-border-radius: 0.25em 0 0 0.25em;
+    border-radius: 0.25em 0 0 0.25em;
 }
 
 .stepper.stepper-horizontal .stepper-button.stepper-button-up {
-      border-left-width : 0;
-                  right : -2em;
-  -webkit-border-radius : 0 0.25em 0.25em 0;
-     -moz-border-radius : 0 0.25em 0.25em 0;
-          border-radius : 0 0.25em 0.25em 0;
+    border-left-width: 0;
+    right: -2em;
+    -webkit-border-radius: 0 0.25em 0.25em 0;
+    -moz-border-radius: 0 0.25em 0.25em 0;
+    border-radius: 0 0.25em 0.25em 0;
 }
 
 .stepper.stepper-vertical {
-   display : inline-block;
-  position : relative;
+    display: inline-block;
+    position: relative;
 }
 
 .stepper.stepper-vertical .stepper-button {
-            border-left : 0;
-                  right : -1em;
-                 height : 100%;
-               overflow : hidden;
-               position : absolute;
-                    top : 0;
-                  width : 1em;
-  -webkit-border-radius : 0 0.25em 0.25em 0;
-     -moz-border-radius : 0 0.25em 0.25em 0;
-          border-radius : 0 0.25em 0.25em 0;
+    border-left: 0;
+    right: -1em;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 1em;
+    -webkit-border-radius: 0 0.25em 0.25em 0;
+    -moz-border-radius: 0 0.25em 0.25em 0;
+    border-radius: 0 0.25em 0.25em 0;
 }
 
 .stepper.stepper-vertical .stepper-button a {
-      display : block;
-       height : 50%;
-  line-height : 100%;
+    display: block;
+    height: 50%;
+    line-height: 100%;
 }
